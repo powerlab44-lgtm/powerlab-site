@@ -4,9 +4,10 @@ import Image from "next/image";
 
 export default function Home() {
     return (
-        <main className="min-h-screen flex flex-col items-center justify-center text-center px-6
-                     bg-gradient-to-b from-black via-black to-green-900">
-
+        <main
+            className="min-h-screen flex flex-col items-center justify-center text-center px-6
+                 bg-gradient-to-b from-black via-black to-green-900"
+        >
             {/* LOGO CENTRALE */}
             <div className="mb-10">
                 <Image
@@ -14,8 +15,9 @@ export default function Home() {
                     alt="PowerLab Logo"
                     width={320}
                     height={120}
+                    priority
                     className="mx-auto drop-shadow-[0_6px_20px_rgba(0,255,0,0.5)]"
-                />npm run dev
+                />
             </div>
 
             {/* HERO TEXT */}
@@ -26,8 +28,8 @@ export default function Home() {
             </h1>
 
             <p className="mt-6 text-neutral-300 text-lg md:text-xl max-w-2xl">
-                Benvenuto in <span className="text-brand font-semibold">PowerLab</span>:
-                il tuo angolo di performance, benessere e crescita. <br />
+                Benvenuto in <span className="text-brand font-semibold">PowerLab</span>: il tuo
+                angolo di performance, benessere e crescita. <br />
                 Un ambiente studiato per trasformare la tua energia in risultati concreti.
             </p>
 

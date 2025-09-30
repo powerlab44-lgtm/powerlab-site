@@ -1,39 +1,44 @@
 "use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import Image from "next/image";
+
+const nav = [
+    { href: "/", label: "Home" },
+    { href: "/about", label: "Chi siamo" },
+    { href: "/services", label: "Servizi" },
+    { href: "/contact", label: "Contatti" },
+    { href: "/galleria", label: "Galleria" },
+];
 
 export default function NavBar() {
-    return (
-        <nav className="w-full bg-black text-white shadow-md fixed top-0 left-0 z-50">
-            <div className="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
+    const pathname = usePathname();
 
-                {/* LOGO */}
-                <Link href="/" className="flex items-center">
-                    <img
-                        src="/images/logo.png"
-                        alt="PowerLab Logo"
-                        className="h-12 w-auto"
-                    />
+    return (
+        <header className="sticky top-0 z-50 bg-black/70 backdrop-blur-md border-b border-white/10">
+            <div className="container mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
+                <Link href="/" className="flex items-center gap-3">
+                    <Image src="/logo.png" alt="PowerLab" width={130} height={40} />
                 </Link>
 
-                {/* MENU */}
-                <div className="flex space-x-8 text-lg font-medium">
-                    <Link href="/" className="hover:text-[#8BC53F] transition-colors">
-                        Home
-                    </Link>
-                    <Link href="/about" className="hover:text-[#8BC53F] transition-colors">
-                        Chi siamo
-                    </Link>
-                    <Link href="/servizi" className="hover:text-[#8BC53F] transition-colors">
-                        Servizi
-                    </Link>
-                    <Link href="/contact" className="hover:text-[#8BC53F] transition-colors">
-                        Contatti
-                    </Link>
-                    <Link href="/galleria" className="hover:text-[#8BC53F] transition-colors">
-                        Galleria
-                    </Link>
-                </div>
+                <nav className="flex items-center gap-6 text-sm md:text-base">
+                    {nav.map((item) => {
+                        const active = pathname === item.href;
+                        return (
+                            <Link
+                                key={item.href}
+                                href={item.href}
+                                className={`transition-colors ${
+                                    active ? "text-brand" : "text-white hover:text-brand"
+                                }`}
+                            >
+                                {item.label}
+                            </Link>
+                        );
+                    })}
+                </nav>
             </div>
-        </nav>
+        </header>
     );
 }
