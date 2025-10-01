@@ -25,7 +25,7 @@ export default function Servizi() {
                          md:group-hover:scale-[1.02]"
                         >
                             <img
-                                src="/images/foto00011.jpg"
+                                src="/images/foto00050.jpg"
                                 alt="Allenamento PowerLab"
                                 className="absolute inset-0 h-full w-full object-cover"
                                 loading="lazy"
@@ -47,7 +47,7 @@ export default function Servizi() {
                          md:group-hover:scale-[1.02]"
                         >
                             <img
-                                src="/images/foto00012.jpg"
+                                src="/images/foto00059.jpg"
                                 alt="Clienti PowerLab"
                                 className="absolute inset-0 h-full w-full object-cover"
                                 loading="lazy"
@@ -69,7 +69,7 @@ export default function Servizi() {
                          md:group-hover:scale-[1.02]"
                         >
                             <img
-                                src="/images/foto00013.jpg"
+                                src="/images/foto00005.jpg"
                                 alt="Team PowerLab"
                                 className="absolute inset-0 h-full w-full object-cover"
                                 loading="lazy"
