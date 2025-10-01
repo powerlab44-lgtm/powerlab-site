@@ -25,7 +25,7 @@ export default function Servizi() {
                          md:group-hover:scale-[1.02]"
                         >
                             <img
-                                src="/images/foto00050.jpg"
+                                src="/images/foto00029.jpg"
                                 alt="Allenamento PowerLab"
                                 className="absolute inset-0 h-full w-full object-cover"
                                 loading="lazy"
