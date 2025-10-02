@@ -1,43 +1,68 @@
 import { Resend } from "resend";
+import { NextResponse } from "next/server";
 
-export const runtime = "nodejs";
+interface ContactForm {
+    name: string;
+    email: string;
+    message: string;
+}
+
+/** Type guard per validare il body */
+function isContactForm(x: unknown): x is ContactForm {
+    if (!x || typeof x !== "object") return false;
+    const obj = x as Record<string, unknown>;
+    return (
+        typeof obj.name === "string" &&
+        typeof obj.email === "string" &&
+        typeof obj.message === "string"
+    );
+}
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: Request) {
+    if (!process.env.RESEND_API_KEY) {
+        return NextResponse.json(
+            { success: false, error: "Manca RESEND_API_KEY" },
+            { status: 500 }
+        );
+    }
+
     try {
-        if (!process.env.RESEND_API_KEY) {
-            return new Response(
-                JSON.stringify({ success: false, error: "Manca RESEND_API_KEY" }),
-                { status: 500 }
-            );
-        }
-
-        const { name, email, message } = await req.json();
-
-        if (!name || !email || !message) {
-            return new Response(
-                JSON.stringify({ success: false, error: "Campi mancanti" }),
+        const bodyUnknown = await req.json();
+        if (!isContactForm(bodyUnknown)) {
+            return NextResponse.json(
+                { success: false, error: "Campi mancanti" },
                 { status: 400 }
             );
         }
 
+        const { name, email, message } = bodyUnknown;
+
         await resend.emails.send({
             from: "PowerLab <onboarding@resend.dev>",
-            to: "powerlab44@gmail.com",
-            reply_to: email,
-            subject: `Nuovo messaggio da ${name}`,
-            text: `Nome: ${name}\nEmail: ${email}\n\nMessaggio:\n${message}`,
+            to: "powerlab44@gmail.com", // ← mail di destinazione
+            subject: "Nuovo messaggio dal sito PowerLab 🚀",
+            text: `
+Hai ricevuto un nuovo messaggio dal form di contatto:
+
+• Nome: ${name}
+• Email: ${email}
+
+Messaggio:
+${message}
+      `.trim(),
         });
 
-        return new Response(
-            JSON.stringify({ success: true, message: "Email inviata con successo ✅" }),
+        return NextResponse.json(
+            { success: true, message: "Email inviata con successo" },
             { status: 200 }
         );
-    } catch (error: any) {
-        console.error("Errore invio email:", error?.message || error);
-        return new Response(
-            JSON.stringify({ success: false, error: "Errore interno" }),
+    } catch (err: unknown) {
+        const msg = err instanceof Error ? err.message : "Errore sconosciuto";
+        console.error("Errore invio email:", msg);
+        return NextResponse.json(
+            { success: false, error: msg },
             { status: 500 }
         );
     }

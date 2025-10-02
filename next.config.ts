@@ -6,3 +6,6 @@ const nextConfig: NextConfig = {
 };
 
 export default nextConfig;
+images: {
+    domains: ["cdn.miosito.com", "res.cloudinary.com"]
+}
