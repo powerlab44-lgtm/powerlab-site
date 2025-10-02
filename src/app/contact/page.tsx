@@ -3,7 +3,6 @@
 export default function Contact() {
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        // TODO: invia i dati a un endpoint /action o API route
         alert("Grazie! Ti ricontattiamo a breve.");
     };
 
@@ -36,17 +35,17 @@ export default function Contact() {
                             </li>
                             <li className="flex gap-3">
                                 <svg width="20" height="20" viewBox="0 0 24 24" className="mt-1 text-brand" fill="currentColor"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.1.36 2.28.55 3.5.55a1 1 0 0 1 1 1V21a1 1 0 0 1-1 1C10.85 22 2 13.15 2 2a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.22.19 2.4.55 3.5a1 1 0 0 1-.25 1.01l-2.18 2.28Z"/></svg>
-                                <div className="space-y-1">
-                                    <a href="tel:+393317056486" className="block hover:text-brand transition">Ran · +39 331 705 6486</a>
-                                    <a href="tel:+393518445356" className="block hover:text-brand transition">Michael · +39 351 844 5356</a>
-                                    <a href="tel:+393472890588" className="block hover:text-brand transition">Alfonso · +39 347 289 0588</a>
+                                <div>
+                                    <a href="https://wa.me/393314559446" className="block hover:text-brand transition">
+                                        WhatsApp Studio · +39 331 455 9446
+                                    </a>
                                 </div>
                             </li>
                             <li className="flex gap-3">
                                 <svg width="20" height="20" viewBox="0 0 24 24" className="mt-1 text-brand" fill="currentColor"><path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm-1.4 3-6.6 4.13L5.4 7h13.2ZM4 18V8.25l7.2 4.5a1 1 0 0 0 1.06 0L20 8.25V18H4Z"/></svg>
                                 <div>
-                                    <a href="mailto:info@powerlab.example" className="hover:text-brand transition">
-                                        info@powerlab.example
+                                    <a href="mailto:powerlab44@gmail.com" className="hover:text-brand transition">
+                                        powerlab44@gmail.com
                                     </a>
                                     <div className="text-neutral-500 text-sm">Rispondiamo entro 24h</div>
                                 </div>
