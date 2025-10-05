@@ -27,9 +27,10 @@ const testimonials = [
 export default function Home() {
     return (
         <main className="bg-black text-white">
-            {/* HERO */}
+            {/* HERO SECTION */}
             <section className="relative min-h-[75vh] md:min-h-[80vh] overflow-hidden">
-                <div className="absolute inset-0">
+                {/* BACKGROUND SOLO SU DESKTOP */}
+                <div className="hidden md:block absolute inset-0">
                     <Image
                         src={heroImages[0]}
                         alt="PowerLab Team"
@@ -41,17 +42,32 @@ export default function Home() {
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/10" />
                 </div>
 
-                {/* contenuto abbassato */}
-                <div className="relative z-10 container mx-auto px-6 pt-[260px] md:pt-[320px] pb-14 flex flex-col items-start">
-                    <h1 className="text-4xl md:text-6xl font-extrabold leading-tight max-w-3xl">
+                {/* BACKGROUND MOBILE: logo + sfumature verdi */}
+                <div className="block md:hidden absolute inset-0 bg-black">
+                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(0,255,100,0.15)_0%,_transparent_70%)] animate-pulse" />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                        <Image
+                            src="/logo_powerlab_large.png"
+                            alt="PowerLab Logo"
+                            width={180}
+                            height={180}
+                            className="opacity-90"
+                            priority
+                        />
+                    </div>
+                </div>
+
+                {/* CONTENUTO (desktop e mobile) */}
+                <div className="relative z-10 container mx-auto px-6 pt-[260px] md:pt-[320px] pb-14 flex flex-col items-start text-center md:text-left">
+                    <h1 className="text-4xl md:text-6xl font-extrabold leading-tight max-w-3xl mx-auto md:mx-0">
                         Un posto dove ti senti a <span className="text-brand">casa</span>, un passo{" "}
                         <span className="text-brand">alla volta</span>.
                     </h1>
-                    <p className="mt-5 text-neutral-300 max-w-2xl text-lg">
+                    <p className="mt-5 text-neutral-300 max-w-2xl text-lg mx-auto md:mx-0">
                         Percorsi su misura, tecnologie di valutazione e coach che ti seguono davvero.
                         Pensiamo a tutto noi: tu porti solo la voglia di stare bene.
                     </p>
-                    <div className="mt-8 flex flex-wrap gap-3">
+                    <div className="mt-8 flex flex-wrap gap-3 justify-center md:justify-start">
                         <Link
                             href="/contact"
                             className="px-6 py-3 rounded-full bg-brand text-black font-semibold hover:opacity-90 transition"
