@@ -61,7 +61,7 @@ export default function Home() {
         <main className="bg-black text-white">
             {/* HERO */}
             <section className="relative min-h-[72vh] md:min-h-[78vh] overflow-hidden">
-                {/* Immagine: su mobile object-contain per mostrare tutti e tre; da md in su torna cover */}
+                {/* Immagine principale */}
                 <div className="absolute inset-0">
                     <Image
                         src={heroImages[0]}
@@ -70,31 +70,22 @@ export default function Home() {
                         priority
                         sizes="100vw"
                         className="
-              object-contain           /* mostra tutta l'immagine su mobile */
-              md:object-cover          /* copertura completa da tablet/desktop */
-              object-center
-              opacity-90
-              bg-black                  /* eventuali bande ai lati su mobile = nere, integrate al layout */
+              object-contain md:object-cover
+              object-center opacity-90 bg-black
             "
                     />
-                    {/* Gradiente per lettura testo */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/20" />
                 </div>
 
-                {/* Testo ABBASSATO */}
+                {/* Testo ABBASSATO di 3cm circa */}
                 <div
                     className="
             relative z-10 container mx-auto px-6
-            pt-40 md:pt-48              /* qui abbassi le scritte */
-            pb-14
-            max-w-5xl
+            pt-[180px] md:pt-[220px]  /* → circa 3cm in più */
+            pb-14 max-w-5xl
           "
                 >
-                    <h1
-                        className="
-              text-4xl md:text-6xl font-extrabold leading-tight
-            "
-                    >
+                    <h1 className="text-4xl md:text-6xl font-extrabold leading-tight">
                         Un posto dove ti senti a{" "}
                         <span className="text-brand">casa</span>, un passo
                         <br className="hidden md:block" />{" "}
