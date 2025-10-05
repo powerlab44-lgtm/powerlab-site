@@ -1,7 +1,7 @@
+// app/page.tsx
 import Image from "next/image";
 import Link from "next/link";
 
-/** Immagini hero (usa i tuoi path reali dentro /public/images) */
 const heroImages = [
     "/images/foto00005.jpg",
     "/images/foto00028.jpg",
@@ -59,48 +59,58 @@ const testimonials = [
 export default function Home() {
     return (
         <main className="bg-black text-white">
-            {/* === HERO =========================================================== */}
-            <section className="relative min-h-[78vh] md:min-h-[86vh] overflow-hidden">
-                {/* Background image + overlay */}
+            {/* HERO */}
+            <section className="relative min-h-[72vh] md:min-h-[78vh] overflow-hidden">
+                {/* Immagine: su mobile object-contain per mostrare tutti e tre; da md in su torna cover */}
                 <div className="absolute inset-0">
                     <Image
                         src={heroImages[0]}
-                        alt="Team PowerLab"
+                        alt="PowerLab Team"
                         fill
                         priority
                         sizes="100vw"
-                        /**
-                         * MOBILE: spostiamo l’inquadratura verso destra/alto per far entrare bene tutti e tre.
-                         * DESKTOP: torniamo al centro.
-                         */
-                        className="object-cover object-[62%_32%] sm:object-[58%_34%] md:object-center"
+                        className="
+              object-contain           /* mostra tutta l'immagine su mobile */
+              md:object-cover          /* copertura completa da tablet/desktop */
+              object-center
+              opacity-90
+              bg-black                  /* eventuali bande ai lati su mobile = nere, integrate al layout */
+            "
                     />
-                    {/* Overlay: più scuro a sinistra per contrasto testo, leggero verso destra */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/35 to-black/10" />
-                    {/* Leggero fade dal basso in mobile così non si “mangia” i bottoni */}
-                    <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black/70 to-transparent md:hidden" />
+                    {/* Gradiente per lettura testo */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/20" />
                 </div>
 
-                {/* Contenuto */}
-                <div className="relative z-10 mx-auto w-full max-w-6xl px-6 pt-28 sm:pt-32 md:pt-40 lg:pt-48 pb-14">
-          <span className="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-medium bg-white/10 ring-1 ring-white/20 backdrop-blur">
-            Studio personal &amp; fitness
-          </span>
-
-                    <h1 className="mt-5 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight md:leading-[1.05] max-w-[18ch]">
-                        Un posto dove ti senti a <span className="text-brand">casa</span>, un
-                        passo <span className="text-brand">alla volta</span>.
+                {/* Testo ABBASSATO */}
+                <div
+                    className="
+            relative z-10 container mx-auto px-6
+            pt-40 md:pt-48              /* qui abbassi le scritte */
+            pb-14
+            max-w-5xl
+          "
+                >
+                    <h1
+                        className="
+              text-4xl md:text-6xl font-extrabold leading-tight
+            "
+                    >
+                        Un posto dove ti senti a{" "}
+                        <span className="text-brand">casa</span>, un passo
+                        <br className="hidden md:block" />{" "}
+                        <span className="text-brand">alla volta</span>.
                     </h1>
 
-                    <p className="mt-5 text-neutral-300 max-w-[55ch] text-base sm:text-lg">
-                        Percorsi su misura, tecnologie di valutazione e coach che ti seguono
-                        davvero. Pensiamo a tutto noi: tu porti solo la voglia di stare bene.
+                    <p className="mt-5 text-neutral-300 max-w-2xl text-lg">
+                        Percorsi su misura, tecnologie di valutazione e coach che ti
+                        seguono davvero. Pensiamo a tutto noi: tu porti solo la voglia di
+                        stare bene.
                     </p>
 
                     <div className="mt-8 flex flex-wrap gap-3">
                         <Link
                             href="/contact"
-                            className="px-6 py-3 rounded-full bg-brand text-black font-semibold hover:opacity-90 transition shadow-[0_10px_30px_-12px_rgba(16,185,129,.5)]"
+                            className="px-6 py-3 rounded-full bg-brand text-black font-semibold hover:opacity-90 transition"
                         >
                             Prenota una call
                         </Link>
@@ -114,14 +124,11 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* === SERVIZI ======================================================== */}
-            <section className="mx-auto w-full max-w-6xl px-6 py-14 md:py-20">
+            {/* SERVIZI */}
+            <section className="container mx-auto px-6 py-14 md:py-20">
                 <div className="flex items-end justify-between mb-8">
                     <h2 className="text-3xl md:text-4xl font-bold">Servizi</h2>
-                    <Link
-                        href="/servizi"
-                        className="text-brand text-sm md:text-base hover:opacity-80"
-                    >
+                    <Link href="/servizi" className="text-brand text-sm md:text-base hover:opacity-80">
                         Vedi tutto →
                     </Link>
                 </div>
@@ -153,14 +160,11 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* === GALLERIA (masonry) ============================================ */}
-            <section className="mx-auto w-full max-w-6xl px-6 pb-14 md:pb-20">
+            {/* GALLERIA */}
+            <section className="container mx-auto px-6 pb-14 md:pb-20">
                 <div className="flex items-end justify-between mb-8">
                     <h2 className="text-3xl md:text-4xl font-bold">Galleria</h2>
-                    <Link
-                        href="/galleria"
-                        className="text-brand text-sm md:text-base hover:opacity-80"
-                    >
+                    <Link href="/galleria" className="text-brand text-sm md:text-base hover:opacity-80">
                         Apri galleria →
                     </Link>
                 </div>
@@ -185,14 +189,11 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* === TESTIMONIANZE (carosello semplice) ============================ */}
-            <section className="mx-auto w-full max-w-6xl px-6 pb-16 md:pb-24">
+            {/* TESTIMONIANZE */}
+            <section className="container mx-auto px-6 pb-16 md:pb-24">
                 <div className="flex items-end justify-between mb-6">
                     <h2 className="text-3xl md:text-4xl font-bold">Le persone dicono di noi</h2>
-                    <Link
-                        href="/testimonianze"
-                        className="text-brand text-sm md:text-base hover:opacity-80"
-                    >
+                    <Link href="/testimonianze" className="text-brand text-sm md:text-base hover:opacity-80">
                         Leggi tutte →
                     </Link>
                 </div>
@@ -213,9 +214,9 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* === CTA WhatsApp / Contact ======================================= */}
+            {/* CTA CONTATTI */}
             <section className="relative">
-                <div className="mx-auto w-full max-w-6xl px-6 pb-20">
+                <div className="container mx-auto px-6 pb-20">
                     <div className="rounded-3xl p-8 md:p-10 ring-1 ring-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
                         <div>
                             <h3 className="text-2xl md:text-3xl font-bold">Pronto per iniziare?</h3>
@@ -244,4 +245,3 @@ export default function Home() {
         </main>
     );
 }
-
