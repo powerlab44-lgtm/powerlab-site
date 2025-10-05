@@ -2,26 +2,20 @@
 import { Resend } from "resend";
 
 /**
- * Contatto PowerLab (Resend)
- * - Valida payload
- * - Rate limit basico per IP
- * - Istanzia Resend solo a runtime
- * - Risposte JSON coerenti
+ * Contatto PowerLab (Resend) – no-any, compatibile con ESLint strict
  */
 
 // Evita caching/ISR su questa API
 export const dynamic = "force-dynamic";
 export const runtime = "nodejs";
 
-// ======= CONFIG (usa env su Vercel) =======
-const RESEND_API_KEY = process.env.RESEND_API_KEY || "";
-const EMAIL_TO = process.env.EMAIL_TO || "powerlab44@gmail.com";
-// Mittente: usa un sender verificato su Resend (puoi cambiarlo via env)
+// ======= CONFIG (via ENV su Vercel) =======
+const RESEND_API_KEY = process.env.RESEND_API_KEY ?? "";
+const EMAIL_TO = process.env.EMAIL_TO ?? "powerlab44@gmail.com";
 const EMAIL_FROM =
-    process.env.EMAIL_FROM || "PowerLab <onboarding@resend.dev>";
+    process.env.EMAIL_FROM ?? "PowerLab <onboarding@resend.dev>";
 
-// ======= RATE LIMIT (in-memory, basico) =======
-// NB: su serverless può non persistere tra invocazioni, ma evita spam base.
+// ======= RATE LIMIT (in-memory, best-effort) =======
 const WINDOW_MS = 15 * 1000; // 15s
 const MAX_REQ = 3; // max 3 richieste/15s per IP
 const hits = new Map<string, number[]>();
@@ -29,7 +23,6 @@ const hits = new Map<string, number[]>();
 function rateLimit(ip: string): boolean {
     const now = Date.now();
     const arr = hits.get(ip) ?? [];
-    // tieni solo richieste nella finestra
     const filtered = arr.filter((t) => now - t < WINDOW_MS);
     filtered.push(now);
     hits.set(ip, filtered);
@@ -37,31 +30,40 @@ function rateLimit(ip: string): boolean {
 }
 
 // ======= UTILS =======
-function json(data: unknown, status = 200) {
+function json(data: unknown, status = 200): Response {
     return new Response(JSON.stringify(data), {
         status,
         headers: { "Content-Type": "application/json" },
     });
 }
 
-function isValidEmail(email: string) {
-    // regex semplice ma efficace
+function isValidEmail(email: string): boolean {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
+function escapeHtml(str: string): string {
+    return String(str)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+}
+
 // ======= TYPES =======
-type Body = {
+interface Body {
     name?: string;
     email?: string;
     message?: string;
-};
+}
 
 // ======= HANDLER =======
-export async function POST(req: Request) {
+export async function POST(req: Request): Promise<Response> {
     try {
-        // Rate limit per IP (best-effort)
+        // Rate limit per IP
+        const ipHeader = req.headers.get("x-forwarded-for") ?? "";
         const ip =
-            (req.headers.get("x-forwarded-for") || "").split(",")[0].trim() ||
+            ipHeader.split(",")[0].trim() ||
             req.headers.get("x-real-ip") ||
             "unknown";
         if (!rateLimit(ip)) {
@@ -71,8 +73,9 @@ export async function POST(req: Request) {
             );
         }
 
-        // Leggi e valida corpo
-        const { name, email, message } = (await req.json()) as Body;
+        // Body e validazione
+        const parsed = (await req.json()) as unknown;
+        const { name, email, message } = (parsed ?? {}) as Body;
 
         if (!name || !email || !message) {
             return json(
@@ -84,7 +87,6 @@ export async function POST(req: Request) {
             return json({ success: false, error: "Email non valida" }, 400);
         }
 
-        // Verifica API Key a runtime (non blocca il build)
         if (!RESEND_API_KEY) {
             return json(
                 {
@@ -96,13 +98,12 @@ export async function POST(req: Request) {
             );
         }
 
-        // Invia email con Resend
+        // Invia email
         const resend = new Resend(RESEND_API_KEY);
-
         await resend.emails.send({
             from: EMAIL_FROM,
             to: EMAIL_TO,
-            replyTo: email, // utile per rispondere direttamente al mittente
+            replyTo: email,
             subject: "Nuovo messaggio dal sito PowerLab",
             text: `Hai ricevuto un nuovo messaggio dal form contatti.
 
@@ -112,7 +113,6 @@ Email: ${email}
 Messaggio:
 ${message}
 `,
-            // opzionale: contenuto HTML semplice
             html: `
         <div style="font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:#111">
           <h2>Nuovo messaggio dal sito <span style="color:#22c55e">PowerLab</span></h2>
@@ -126,25 +126,16 @@ ${message}
       `,
         });
 
-        return json({
-            success: true,
-            message: "Email inviata con successo ✅",
-        });
-    } catch (err: any) {
+        return json({ success: true, message: "Email inviata con successo ✅" });
+    } catch (err: unknown) {
+        // niente any: gestiamo unknown
+        const msg =
+            err instanceof Error
+                ? err.message
+                : typeof err === "string"
+                    ? err
+                    : "Errore interno";
         console.error("[/api/contact] error:", err);
-        return json(
-            { success: false, error: err?.message || "Errore interno" },
-            500
-        );
+        return json({ success: false, error: msg }, 500);
     }
-}
-
-// Escape base per l'HTML dell'email
-function escapeHtml(str: string) {
-    return String(str)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
 }
