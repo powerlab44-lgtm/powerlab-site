@@ -50,6 +50,7 @@ export default function NavBar() {
             { href: "/contact", label: "Contatti" },
             { href: "/galleria", label: "Galleria" },
             { href: "/testimonianze", label: "Testimonianze" },
+            { href: "/candidatura", label: "Candidatura" },
         ],
         []
     );
