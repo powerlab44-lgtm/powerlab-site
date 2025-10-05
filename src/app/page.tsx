@@ -1,32 +1,12 @@
-// app/page.tsx
 import Image from "next/image";
 import Link from "next/link";
 
-const heroImages = [
-    "/images/foto00005.jpg",
-    "/images/foto00028.jpg",
-    "/images/foto00059.jpg",
-];
+const heroImages = ["/images/foto00005.jpg", "/images/foto00028.jpg", "/images/foto00059.jpg"];
 
 const services = [
-    {
-        title: "Personal Training",
-        desc: "Programma 1:1 su misura.",
-        href: "/servizi#personal",
-        img: "/images/foto00011.jpg",
-    },
-    {
-        title: "Small Group",
-        desc: "Allenamenti di gruppo mirati.",
-        href: "/servizi#small-group",
-        img: "/images/foto00023.jpg",
-    },
-    {
-        title: "Performance",
-        desc: "Forza, potenza, prevenzione.",
-        href: "/servizi#performance",
-        img: "/images/foto00031.jpg",
-    },
+    { title: "Personal Training", desc: "Programma 1:1 su misura.", href: "/servizi#personal", img: "/images/foto00011.jpg" },
+    { title: "Small Group", desc: "Allenamenti di gruppo mirati.", href: "/servizi#small-group", img: "/images/foto00023.jpg" },
+    { title: "Performance", desc: "Forza, potenza, prevenzione.", href: "/servizi#performance", img: "/images/foto00031.jpg" },
 ];
 
 const gallery = [
@@ -39,29 +19,16 @@ const gallery = [
 ];
 
 const testimonials = [
-    {
-        name: "Giulia",
-        quote:
-            "Ambiente curato e coach attentissimi: in 3 mesi più energia e zero dolori.",
-    },
-    {
-        name: "Luca",
-        quote:
-            "Metodo chiaro, misurazioni periodiche e risultati reali. Consigliatissimo.",
-    },
-    {
-        name: "Sara",
-        quote:
-            "Mi sento seguita davvero: piano su misura e progressi ad ogni seduta.",
-    },
+    { name: "Giulia", quote: "Ambiente curato e coach attentissimi: in 3 mesi più energia e zero dolori." },
+    { name: "Luca", quote: "Metodo chiaro, misurazioni periodiche e risultati reali. Consigliatissimo." },
+    { name: "Sara", quote: "Mi sento seguita davvero: piano su misura e progressi ad ogni seduta." },
 ];
 
 export default function Home() {
     return (
         <main className="bg-black text-white">
             {/* HERO */}
-            <section className="relative min-h-[72vh] md:min-h-[78vh] overflow-hidden">
-                {/* Immagine principale */}
+            <section className="relative min-h-[75vh] md:min-h-[80vh] overflow-hidden">
                 <div className="absolute inset-0">
                     <Image
                         src={heroImages[0]}
@@ -69,35 +36,21 @@ export default function Home() {
                         fill
                         priority
                         sizes="100vw"
-                        className="
-              object-contain md:object-cover
-              object-center opacity-90 bg-black
-            "
+                        className="object-cover object-center opacity-90"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/20" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/10" />
                 </div>
 
-                {/* Testo ABBASSATO di 3cm circa */}
-                <div
-                    className="
-            relative z-10 container mx-auto px-6
-            pt-[180px] md:pt-[220px]  /* → circa 3cm in più */
-            pb-14 max-w-5xl
-          "
-                >
-                    <h1 className="text-4xl md:text-6xl font-extrabold leading-tight">
-                        Un posto dove ti senti a{" "}
-                        <span className="text-brand">casa</span>, un passo
-                        <br className="hidden md:block" />{" "}
+                {/* contenuto abbassato */}
+                <div className="relative z-10 container mx-auto px-6 pt-[260px] md:pt-[320px] pb-14 flex flex-col items-start">
+                    <h1 className="text-4xl md:text-6xl font-extrabold leading-tight max-w-3xl">
+                        Un posto dove ti senti a <span className="text-brand">casa</span>, un passo{" "}
                         <span className="text-brand">alla volta</span>.
                     </h1>
-
                     <p className="mt-5 text-neutral-300 max-w-2xl text-lg">
-                        Percorsi su misura, tecnologie di valutazione e coach che ti
-                        seguono davvero. Pensiamo a tutto noi: tu porti solo la voglia di
-                        stare bene.
+                        Percorsi su misura, tecnologie di valutazione e coach che ti seguono davvero.
+                        Pensiamo a tutto noi: tu porti solo la voglia di stare bene.
                     </p>
-
                     <div className="mt-8 flex flex-wrap gap-3">
                         <Link
                             href="/contact"
@@ -136,7 +89,6 @@ export default function Home() {
                                     src={s.img}
                                     alt={s.title}
                                     fill
-                                    sizes="(max-width: 768px) 100vw, 33vw"
                                     className="object-cover object-center group-hover:scale-[1.03] transition-transform duration-500"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
@@ -162,18 +114,9 @@ export default function Home() {
 
                 <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 [column-fill:_balance]">
                     {gallery.map((src, i) => (
-                        <div
-                            key={i}
-                            className="mb-4 break-inside-avoid rounded-3xl overflow-hidden ring-1 ring-white/10 bg-white/5"
-                        >
+                        <div key={i} className="mb-4 break-inside-avoid rounded-3xl overflow-hidden ring-1 ring-white/10 bg-white/5">
                             <div className="relative w-full h-[220px] md:h-[260px]">
-                                <Image
-                                    src={src}
-                                    alt={`Galleria ${i + 1}`}
-                                    fill
-                                    sizes="(max-width: 768px) 100vw, 33vw"
-                                    className="object-cover object-center"
-                                />
+                                <Image src={src} alt={`Galleria ${i + 1}`} fill className="object-cover object-center" />
                             </div>
                         </div>
                     ))}
@@ -191,10 +134,7 @@ export default function Home() {
 
                 <div className="overflow-x-auto flex gap-4 snap-x snap-mandatory pb-2">
                     {testimonials.map((t, i) => (
-                        <div
-                            key={i}
-                            className="snap-start min-w-[82%] sm:min-w-[420px] bg-white/5 ring-1 ring-white/10 rounded-3xl p-6"
-                        >
+                        <div key={i} className="snap-start min-w-[82%] sm:min-w-[420px] bg-white/5 ring-1 ring-white/10 rounded-3xl p-6">
                             <div className="flex items-center gap-3">
                                 <div className="h-9 w-9 rounded-full bg-white/10" />
                                 <div className="font-medium">{t.name}</div>
@@ -205,15 +145,13 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* CTA CONTATTI */}
+            {/* CTA */}
             <section className="relative">
                 <div className="container mx-auto px-6 pb-20">
                     <div className="rounded-3xl p-8 md:p-10 ring-1 ring-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
                         <div>
                             <h3 className="text-2xl md:text-3xl font-bold">Pronto per iniziare?</h3>
-                            <p className="mt-2 text-neutral-400">
-                                Scrivici su WhatsApp o prenota una call.
-                            </p>
+                            <p className="mt-2 text-neutral-400">Scrivici su WhatsApp o prenota una call.</p>
                         </div>
                         <div className="flex flex-wrap gap-3">
                             <Link
