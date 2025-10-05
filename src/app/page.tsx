@@ -49,7 +49,7 @@ export default function Home() {
                     <div className="pointer-events-none absolute -inset-10 opacity-25 blur-2xl animate-[spin_18s_linear_infinite] bg-[conic-gradient(from_0deg,_rgba(34,197,94,0.15),transparent_30%,rgba(16,185,129,0.15)_60%,transparent_85%,rgba(34,197,94,0.15))]" />
 
                     {/* Logo – alzato di circa 3cm (≈72px) */}
-                    <div className="absolute inset-x-0 top-[calc(50%-144px)] flex items-center justify-center">
+                    <div className="absolute inset-x-0 top-[calc(75%-216px)] flex items-center justify-center">
                         <Image
                             src="/logo.png"  // assicurati che esista in /public
                             alt="PowerLab"
