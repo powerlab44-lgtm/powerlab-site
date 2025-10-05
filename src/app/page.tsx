@@ -1,11 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
 
+/** Immagini hero (usa i tuoi path reali dentro /public/images) */
 const heroImages = [
-    // Sostituisci con i nomi reali in /public/images/
     "/images/foto00005.jpg",
-    ("/images/foto00028.jpg"),
-    ("/images/foto00059.jpg"),
+    "/images/foto00028.jpg",
+    "/images/foto00059.jpg",
 ];
 
 const services = [
@@ -39,44 +39,68 @@ const gallery = [
 ];
 
 const testimonials = [
-    { name: "Giulia", quote: "Ambiente curato e coach attentissimi: in 3 mesi più energia e zero dolori." },
-    { name: "Luca", quote: "Metodo chiaro, misurazioni periodiche e risultati reali. Consigliatissimo." },
-    { name: "Sara", quote: "Mi sento seguita davvero: piano su misura e progressi ad ogni seduta." },
+    {
+        name: "Giulia",
+        quote:
+            "Ambiente curato e coach attentissimi: in 3 mesi più energia e zero dolori.",
+    },
+    {
+        name: "Luca",
+        quote:
+            "Metodo chiaro, misurazioni periodiche e risultati reali. Consigliatissimo.",
+    },
+    {
+        name: "Sara",
+        quote:
+            "Mi sento seguita davvero: piano su misura e progressi ad ogni seduta.",
+    },
 ];
 
 export default function Home() {
     return (
         <main className="bg-black text-white">
-            {/* HERO: immagine grande + overlay + CTA */}
-            <section className="relative min-h-[72vh] md:min-h-[78vh] overflow-hidden">
-                {/* Background stack di immagini (solo la prima è visibile; le altre sono per future animazioni se vorrai) */}
+            {/* === HERO =========================================================== */}
+            <section className="relative min-h-[78vh] md:min-h-[86vh] overflow-hidden">
+                {/* Background image + overlay */}
                 <div className="absolute inset-0">
                     <Image
                         src={heroImages[0]}
-                        alt="PowerLab"
+                        alt="Team PowerLab"
                         fill
                         priority
-                        className="object-cover object-center opacity-90"
+                        sizes="100vw"
+                        /**
+                         * MOBILE: spostiamo l’inquadratura verso destra/alto per far entrare bene tutti e tre.
+                         * DESKTOP: torniamo al centro.
+                         */
+                        className="object-cover object-[62%_32%] sm:object-[58%_34%] md:object-center"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-black/20" />
+                    {/* Overlay: più scuro a sinistra per contrasto testo, leggero verso destra */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/35 to-black/10" />
+                    {/* Leggero fade dal basso in mobile così non si “mangia” i bottoni */}
+                    <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-black/70 to-transparent md:hidden" />
                 </div>
 
-                <div className="relative z-10 container mx-auto px-6 pt-28 md:pt-36 pb-14 flex flex-col items-start">
-          <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-white/10 ring-1 ring-white/20">
-            Studio personal & fitness
+                {/* Contenuto */}
+                <div className="relative z-10 mx-auto w-full max-w-6xl px-6 pt-28 sm:pt-32 md:pt-40 lg:pt-48 pb-14">
+          <span className="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-medium bg-white/10 ring-1 ring-white/20 backdrop-blur">
+            Studio personal &amp; fitness
           </span>
-                    <h1 className="mt-6 text-4xl md:text-6xl font-extrabold leading-tight max-w-3xl">
-                        Un posto dove ti senti a <span className="text-brand">casa</span>, un passo
-                        <br className="hidden md:block" /> <span className="text-brand">alla volta</span>.
+
+                    <h1 className="mt-5 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight md:leading-[1.05] max-w-[18ch]">
+                        Un posto dove ti senti a <span className="text-brand">casa</span>, un
+                        passo <span className="text-brand">alla volta</span>.
                     </h1>
-                    <p className="mt-5 text-neutral-300 max-w-2xl text-lg">
-                        Percorsi su misura, tecnologie di valutazione e coach che ti seguono davvero.
-                        Pensiamo a tutto noi: tu porti solo la voglia di stare bene.
+
+                    <p className="mt-5 text-neutral-300 max-w-[55ch] text-base sm:text-lg">
+                        Percorsi su misura, tecnologie di valutazione e coach che ti seguono
+                        davvero. Pensiamo a tutto noi: tu porti solo la voglia di stare bene.
                     </p>
+
                     <div className="mt-8 flex flex-wrap gap-3">
                         <Link
                             href="/contact"
-                            className="px-6 py-3 rounded-full bg-brand text-black font-semibold hover:opacity-90 transition"
+                            className="px-6 py-3 rounded-full bg-brand text-black font-semibold hover:opacity-90 transition shadow-[0_10px_30px_-12px_rgba(16,185,129,.5)]"
                         >
                             Prenota una call
                         </Link>
@@ -90,11 +114,14 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* SERVIZI con foto grandi */}
-            <section className="container mx-auto px-6 py-14 md:py-20">
+            {/* === SERVIZI ======================================================== */}
+            <section className="mx-auto w-full max-w-6xl px-6 py-14 md:py-20">
                 <div className="flex items-end justify-between mb-8">
                     <h2 className="text-3xl md:text-4xl font-bold">Servizi</h2>
-                    <Link href="/servizi" className="text-brand text-sm md:text-base hover:opacity-80">
+                    <Link
+                        href="/servizi"
+                        className="text-brand text-sm md:text-base hover:opacity-80"
+                    >
                         Vedi tutto →
                     </Link>
                 </div>
@@ -111,6 +138,7 @@ export default function Home() {
                                     src={s.img}
                                     alt={s.title}
                                     fill
+                                    sizes="(max-width: 768px) 100vw, 33vw"
                                     className="object-cover object-center group-hover:scale-[1.03] transition-transform duration-500"
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
@@ -125,23 +153,30 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* GALLERIA Masonry responsive (righe con altezze diverse) */}
-            <section className="container mx-auto px-6 pb-14 md:pb-20">
+            {/* === GALLERIA (masonry) ============================================ */}
+            <section className="mx-auto w-full max-w-6xl px-6 pb-14 md:pb-20">
                 <div className="flex items-end justify-between mb-8">
                     <h2 className="text-3xl md:text-4xl font-bold">Galleria</h2>
-                    <Link href="/galleria" className="text-brand text-sm md:text-base hover:opacity-80">
+                    <Link
+                        href="/galleria"
+                        className="text-brand text-sm md:text-base hover:opacity-80"
+                    >
                         Apri galleria →
                     </Link>
                 </div>
 
                 <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 [column-fill:_balance]">
                     {gallery.map((src, i) => (
-                        <div key={i} className="mb-4 break-inside-avoid rounded-3xl overflow-hidden ring-1 ring-white/10 bg-white/5">
+                        <div
+                            key={i}
+                            className="mb-4 break-inside-avoid rounded-3xl overflow-hidden ring-1 ring-white/10 bg-white/5"
+                        >
                             <div className="relative w-full h-[220px] md:h-[260px]">
                                 <Image
                                     src={src}
                                     alt={`Galleria ${i + 1}`}
                                     fill
+                                    sizes="(max-width: 768px) 100vw, 33vw"
                                     className="object-cover object-center"
                                 />
                             </div>
@@ -150,11 +185,14 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* TESTIMONIANZE – carosello “swipe” con scroll-snap (zero librerie) */}
-            <section className="container mx-auto px-6 pb-16 md:pb-24">
+            {/* === TESTIMONIANZE (carosello semplice) ============================ */}
+            <section className="mx-auto w-full max-w-6xl px-6 pb-16 md:pb-24">
                 <div className="flex items-end justify-between mb-6">
                     <h2 className="text-3xl md:text-4xl font-bold">Le persone dicono di noi</h2>
-                    <Link href="/testimonianze" className="text-brand text-sm md:text-base hover:opacity-80">
+                    <Link
+                        href="/testimonianze"
+                        className="text-brand text-sm md:text-base hover:opacity-80"
+                    >
                         Leggi tutte →
                     </Link>
                 </div>
@@ -175,13 +213,15 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* STRISCIA CONTATTI con WhatsApp */}
+            {/* === CTA WhatsApp / Contact ======================================= */}
             <section className="relative">
-                <div className="container mx-auto px-6 pb-20">
+                <div className="mx-auto w-full max-w-6xl px-6 pb-20">
                     <div className="rounded-3xl p-8 md:p-10 ring-1 ring-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
                         <div>
                             <h3 className="text-2xl md:text-3xl font-bold">Pronto per iniziare?</h3>
-                            <p className="mt-2 text-neutral-400">Scrivici su WhatsApp o prenota una call.</p>
+                            <p className="mt-2 text-neutral-400">
+                                Scrivici su WhatsApp o prenota una call.
+                            </p>
                         </div>
                         <div className="flex flex-wrap gap-3">
                             <Link
@@ -204,3 +244,4 @@ export default function Home() {
         </main>
     );
 }
+
