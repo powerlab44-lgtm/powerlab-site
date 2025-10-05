@@ -5,8 +5,8 @@ const heroImages = ["/images/foto00005.jpg", "/images/foto00028.jpg", "/images/f
 
 const services = [
     { title: "Personal Training", desc: "Programma 1:1 su misura.", href: "/servizi#personal", img: "/images/foto00011.jpg" },
-    { title: "Small Group", desc: "Allenamenti di gruppo mirati.", href: "/servizi#small-group", img: "/images/foto00023.jpg" },
-    { title: "Performance", desc: "Forza, potenza, prevenzione.", href: "/servizi#performance", img: "/images/foto00031.jpg" },
+    { title: "Small Group",       desc: "Allenamenti di gruppo mirati.", href: "/servizi#small-group", img: "/images/foto00023.jpg" },
+    { title: "Performance",       desc: "Forza, potenza, prevenzione.", href: "/servizi#performance", img: "/images/foto00031.jpg" },
 ];
 
 const gallery = [
@@ -20,16 +20,16 @@ const gallery = [
 
 const testimonials = [
     { name: "Giulia", quote: "Ambiente curato e coach attentissimi: in 3 mesi più energia e zero dolori." },
-    { name: "Luca", quote: "Metodo chiaro, misurazioni periodiche e risultati reali. Consigliatissimo." },
-    { name: "Sara", quote: "Mi sento seguita davvero: piano su misura e progressi ad ogni seduta." },
+    { name: "Luca",   quote: "Metodo chiaro, misurazioni periodiche e risultati reali. Consigliatissimo." },
+    { name: "Sara",   quote: "Mi sento seguita davvero: piano su misura e progressi ad ogni seduta." },
 ];
 
 export default function Home() {
     return (
         <main className="bg-black text-white">
-            {/* HERO SECTION */}
+            {/* ======================= HERO ======================= */}
             <section className="relative min-h-[75vh] md:min-h-[80vh] overflow-hidden">
-                {/* BACKGROUND SOLO SU DESKTOP */}
+                {/* Desktop bg: foto dei tre (immutata) */}
                 <div className="hidden md:block absolute inset-0">
                     <Image
                         src={heroImages[0]}
@@ -42,31 +42,37 @@ export default function Home() {
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/10" />
                 </div>
 
-                {/* BACKGROUND MOBILE: logo + sfumature verdi */}
+                {/* Mobile bg: nero + sfumature verdi + logo da /public/logo.png */}
                 <div className="block md:hidden absolute inset-0 bg-black">
-                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_rgba(0,255,100,0.15)_0%,_transparent_70%)] animate-pulse" />
+                    {/* glow radiale verde */}
+                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(52,211,153,0.20)_0%,_rgba(0,0,0,0.0)_55%)]" />
+                    {/* alone conico molto soft che ruota leggermente */}
+                    <div className="pointer-events-none absolute -inset-10 opacity-25 blur-2xl animate-[spin_18s_linear_infinite] bg-[conic-gradient(from_0deg,_rgba(34,197,94,0.15),transparent_30%,rgba(16,185,129,0.15)_60%,transparent_85%,rgba(34,197,94,0.15))]" />
+                    {/* logo al centro */}
                     <div className="absolute inset-0 flex items-center justify-center">
                         <Image
-                            src="/logo_powerlab_large.png"
-                            alt="PowerLab Logo"
+                            src="/logo.png"       // <— assicurati che il file esista in /public
+                            alt="PowerLab"
                             width={180}
                             height={180}
-                            className="opacity-90"
                             priority
+                            className="opacity-95"
                         />
                     </div>
                 </div>
 
-                {/* CONTENUTO (desktop e mobile) */}
-                <div className="relative z-10 container mx-auto px-6 pt-[260px] md:pt-[320px] pb-14 flex flex-col items-start text-center md:text-left">
+                {/* Contenuto (comune) — tenuto basso per non invadere i volti su desktop e lasciare spazio al logo su mobile */}
+                <div className="relative z-10 container mx-auto px-6 pt-[300px] md:pt-[360px] pb-14 flex flex-col items-start text-center md:text-left">
                     <h1 className="text-4xl md:text-6xl font-extrabold leading-tight max-w-3xl mx-auto md:mx-0">
                         Un posto dove ti senti a <span className="text-brand">casa</span>, un passo{" "}
                         <span className="text-brand">alla volta</span>.
                     </h1>
+
                     <p className="mt-5 text-neutral-300 max-w-2xl text-lg mx-auto md:mx-0">
                         Percorsi su misura, tecnologie di valutazione e coach che ti seguono davvero.
                         Pensiamo a tutto noi: tu porti solo la voglia di stare bene.
                     </p>
+
                     <div className="mt-8 flex flex-wrap gap-3 justify-center md:justify-start">
                         <Link
                             href="/contact"
@@ -84,13 +90,11 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* SERVIZI */}
+            {/* ======================= SERVIZI ======================= */}
             <section className="container mx-auto px-6 py-14 md:py-20">
                 <div className="flex items-end justify-between mb-8">
                     <h2 className="text-3xl md:text-4xl font-bold">Servizi</h2>
-                    <Link href="/servizi" className="text-brand text-sm md:text-base hover:opacity-80">
-                        Vedi tutto →
-                    </Link>
+                    <Link href="/servizi" className="text-brand text-sm md:text-base hover:opacity-80">Vedi tutto →</Link>
                 </div>
 
                 <div className="grid md:grid-cols-3 gap-6">
@@ -119,13 +123,11 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* GALLERIA */}
+            {/* ======================= GALLERIA ======================= */}
             <section className="container mx-auto px-6 pb-14 md:pb-20">
                 <div className="flex items-end justify-between mb-8">
                     <h2 className="text-3xl md:text-4xl font-bold">Galleria</h2>
-                    <Link href="/galleria" className="text-brand text-sm md:text-base hover:opacity-80">
-                        Apri galleria →
-                    </Link>
+                    <Link href="/galleria" className="text-brand text-sm md:text-base hover:opacity-80">Apri galleria →</Link>
                 </div>
 
                 <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 [column-fill:_balance]">
@@ -139,13 +141,11 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* TESTIMONIANZE */}
+            {/* ======================= TESTIMONIANZE ======================= */}
             <section className="container mx-auto px-6 pb-16 md:pb-24">
                 <div className="flex items-end justify-between mb-6">
                     <h2 className="text-3xl md:text-4xl font-bold">Le persone dicono di noi</h2>
-                    <Link href="/testimonianze" className="text-brand text-sm md:text-base hover:opacity-80">
-                        Leggi tutte →
-                    </Link>
+                    <Link href="/testimonianze" className="text-brand text-sm md:text-base hover:opacity-80">Leggi tutte →</Link>
                 </div>
 
                 <div className="overflow-x-auto flex gap-4 snap-x snap-mandatory pb-2">
@@ -161,7 +161,7 @@ export default function Home() {
                 </div>
             </section>
 
-            {/* CTA */}
+            {/* ======================= CTA ======================= */}
             <section className="relative">
                 <div className="container mx-auto px-6 pb-20">
                     <div className="rounded-3xl p-8 md:p-10 ring-1 ring-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.06),rgba(255,255,255,0.02))] flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
@@ -177,10 +177,7 @@ export default function Home() {
                             >
                                 WhatsApp
                             </Link>
-                            <Link
-                                href="/contact"
-                                className="px-6 py-3 rounded-full ring-1 ring-white/20 bg-white/5 hover:bg-white/10 transition"
-                            >
+                            <Link href="/contact" className="px-6 py-3 rounded-full ring-1 ring-white/20 bg-white/5 hover:bg-white/10 transition">
                                 Prenota una call
                             </Link>
                         </div>
