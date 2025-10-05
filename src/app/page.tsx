@@ -5,8 +5,8 @@ const heroImages = ["/images/foto00005.jpg", "/images/foto00028.jpg", "/images/f
 
 const services = [
     { title: "Personal Training", desc: "Programma 1:1 su misura.", href: "/servizi#personal", img: "/images/foto00011.jpg" },
-    { title: "Small Group",       desc: "Allenamenti di gruppo mirati.", href: "/servizi#small-group", img: "/images/foto00023.jpg" },
-    { title: "Performance",       desc: "Forza, potenza, prevenzione.", href: "/servizi#performance", img: "/images/foto00031.jpg" },
+    { title: "Small Group", desc: "Allenamenti di gruppo mirati.", href: "/servizi#small-group", img: "/images/foto00023.jpg" },
+    { title: "Performance", desc: "Forza, potenza, prevenzione.", href: "/servizi#performance", img: "/images/foto00031.jpg" },
 ];
 
 const gallery = [
@@ -20,8 +20,8 @@ const gallery = [
 
 const testimonials = [
     { name: "Giulia", quote: "Ambiente curato e coach attentissimi: in 3 mesi più energia e zero dolori." },
-    { name: "Luca",   quote: "Metodo chiaro, misurazioni periodiche e risultati reali. Consigliatissimo." },
-    { name: "Sara",   quote: "Mi sento seguita davvero: piano su misura e progressi ad ogni seduta." },
+    { name: "Luca", quote: "Metodo chiaro, misurazioni periodiche e risultati reali. Consigliatissimo." },
+    { name: "Sara", quote: "Mi sento seguita davvero: piano su misura e progressi ad ogni seduta." },
 ];
 
 export default function Home() {
@@ -29,7 +29,7 @@ export default function Home() {
         <main className="bg-black text-white">
             {/* ======================= HERO ======================= */}
             <section className="relative min-h-[75vh] md:min-h-[80vh] overflow-hidden">
-                {/* Desktop bg: foto dei tre (immutata) */}
+                {/* Desktop: immagine dei tre soggetti */}
                 <div className="hidden md:block absolute inset-0">
                     <Image
                         src={heroImages[0]}
@@ -42,16 +42,16 @@ export default function Home() {
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/10" />
                 </div>
 
-                {/* Mobile bg: nero + sfumature verdi + logo da /public/logo.png */}
+                {/* Mobile: sfondo nero con sfumature verdi + logo alzato di 3cm */}
                 <div className="block md:hidden absolute inset-0 bg-black">
-                    {/* glow radiale verde */}
+                    {/* Sfumature */}
                     <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(52,211,153,0.20)_0%,_rgba(0,0,0,0.0)_55%)]" />
-                    {/* alone conico molto soft che ruota leggermente */}
                     <div className="pointer-events-none absolute -inset-10 opacity-25 blur-2xl animate-[spin_18s_linear_infinite] bg-[conic-gradient(from_0deg,_rgba(34,197,94,0.15),transparent_30%,rgba(16,185,129,0.15)_60%,transparent_85%,rgba(34,197,94,0.15))]" />
-                    {/* logo al centro */}
-                    <div className="absolute inset-0 flex items-center justify-center">
+
+                    {/* Logo – alzato di circa 3cm (≈72px) */}
+                    <div className="absolute inset-x-0 top-[calc(50%-72px)] flex items-center justify-center">
                         <Image
-                            src="/logo.png"       // <— assicurati che il file esista in /public
+                            src="/logo.png"  // assicurati che esista in /public
                             alt="PowerLab"
                             width={180}
                             height={180}
@@ -61,7 +61,7 @@ export default function Home() {
                     </div>
                 </div>
 
-                {/* Contenuto (comune) — tenuto basso per non invadere i volti su desktop e lasciare spazio al logo su mobile */}
+                {/* Contenuto testuale – invariato */}
                 <div className="relative z-10 container mx-auto px-6 pt-[300px] md:pt-[360px] pb-14 flex flex-col items-start text-center md:text-left">
                     <h1 className="text-4xl md:text-6xl font-extrabold leading-tight max-w-3xl mx-auto md:mx-0">
                         Un posto dove ti senti a <span className="text-brand">casa</span>, un passo{" "}
