@@ -5,8 +5,8 @@ const heroImages = ["/images/foto00005.jpg", "/images/foto00028.jpg", "/images/f
 
 const services = [
     { title: "Personal Training", desc: "Programma 1:1 su misura.", href: "/servizi#personal", img: "/images/foto00011.jpg" },
-    { title: "Small Group", desc: "Allenamenti di gruppo mirati.", href: "/servizi#small-group", img: "/images/foto00023.jpg" },
-    { title: "Performance", desc: "Forza, potenza, prevenzione.", href: "/servizi#performance", img: "/images/foto00031.jpg" },
+    { title: "Small Group", desc: "Allenamenti di gruppo mirati.", href: "/servizi#small-group", img: "/images/foto00052.jpg" },
+    { title: "Performance", desc: "Forza, potenza, prevenzione.", href: "/servizi#performance", img: "/images/foto00067.jpg" },
 ];
 
 const gallery = [

@@ -20,13 +20,13 @@ export default function Servizi() {
                     <ServiceCard
                         title="Personal Training"
                         desc="Percorso individuale su misura, misurazioni e progressi chiari."
-                        img="/images/team-00018.jpg"
+                        img="/images/team-00091.jpg"
                         href="/chi-siamo"
                     />
                     <ServiceCard
                         title="Programmazione"
                         desc="Schede e progressioni cucite addosso ai tuoi obiettivi."
-                        img="/images/team-00005.jpg"
+                        img="/images/team-00082npm.jpg"
                         href="/chi-siamo"
                     />
                     <ServiceCard
