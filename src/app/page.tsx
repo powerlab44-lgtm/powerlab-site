@@ -29,29 +29,27 @@ export default function Home() {
         <main className="bg-black text-white">
             {/* ======================= HERO ======================= */}
             <section className="relative min-h-[75vh] md:min-h-[80vh] overflow-hidden">
-                {/* Desktop: immagine dei tre soggetti */}
-                <div className="hidden md:block absolute inset-0">
-                    <Image
-                        src={heroImages[0]}
-                        alt="PowerLab Team"
-                        fill
-                        priority
-                        sizes="100vw"
-                        className="object-cover object-center opacity-90"
+                {/* VIDEO: Desktop + Mobile (loop) */}
+                <div className="absolute inset-0">
+                    <video
+                        className="absolute inset-0 h-full w-full object-cover object-center opacity-90"
+                        src="/videos/hero.mp4"
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        preload="auto"
                     />
+                    {/* Overlay scuro come prima */}
                     <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-black/10" />
                 </div>
 
-                {/* Mobile: sfondo nero con sfumature verdi + logo alzato di 3cm */}
-                <div className="block md:hidden absolute inset-0 bg-black">
-                    {/* Sfumature */}
-                    <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,_rgba(52,211,153,0.20)_0%,_rgba(0,0,0,0.0)_55%)]" />
-                    <div className="pointer-events-none absolute -inset-10 opacity-25 blur-2xl animate-[spin_18s_linear_infinite] bg-[conic-gradient(from_0deg,_rgba(34,197,94,0.15),transparent_30%,rgba(16,185,129,0.15)_60%,transparent_85%,rgba(34,197,94,0.15))]" />
-
+                {/* Mobile: logo sopra al video (come era prima, alzato) */}
+                <div className="block md:hidden absolute inset-0 pointer-events-none">
                     {/* Logo – alzato di circa 3cm (≈72px) */}
                     <div className="absolute inset-x-0 top-[calc(50%-216px)] flex items-center justify-center">
                         <Image
-                            src="/logo.png"  // assicurati che esista in /public
+                            src="/logo.png" // deve esistere in /public
                             alt="PowerLab"
                             width={180}
                             height={180}
@@ -94,7 +92,9 @@ export default function Home() {
             <section className="container mx-auto px-6 py-14 md:py-20">
                 <div className="flex items-end justify-between mb-8">
                     <h2 className="text-3xl md:text-4xl font-bold">Servizi</h2>
-                    <Link href="/servizi" className="text-brand text-sm md:text-base hover:opacity-80">Vedi tutto →</Link>
+                    <Link href="/servizi" className="text-brand text-sm md:text-base hover:opacity-80">
+                        Vedi tutto →
+                    </Link>
                 </div>
 
                 <div className="grid md:grid-cols-3 gap-6">
@@ -127,12 +127,17 @@ export default function Home() {
             <section className="container mx-auto px-6 pb-14 md:pb-20">
                 <div className="flex items-end justify-between mb-8">
                     <h2 className="text-3xl md:text-4xl font-bold">Galleria</h2>
-                    <Link href="/galleria" className="text-brand text-sm md:text-base hover:opacity-80">Apri galleria →</Link>
+                    <Link href="/galleria" className="text-brand text-sm md:text-base hover:opacity-80">
+                        Apri galleria →
+                    </Link>
                 </div>
 
                 <div className="columns-1 sm:columns-2 lg:columns-3 gap-4 [column-fill:_balance]">
                     {gallery.map((src, i) => (
-                        <div key={i} className="mb-4 break-inside-avoid rounded-3xl overflow-hidden ring-1 ring-white/10 bg-white/5">
+                        <div
+                            key={i}
+                            className="mb-4 break-inside-avoid rounded-3xl overflow-hidden ring-1 ring-white/10 bg-white/5"
+                        >
                             <div className="relative w-full h-[220px] md:h-[260px]">
                                 <Image src={src} alt={`Galleria ${i + 1}`} fill className="object-cover object-center" />
                             </div>
@@ -145,12 +150,17 @@ export default function Home() {
             <section className="container mx-auto px-6 pb-16 md:pb-24">
                 <div className="flex items-end justify-between mb-6">
                     <h2 className="text-3xl md:text-4xl font-bold">Le persone dicono di noi</h2>
-                    <Link href="/testimonianze" className="text-brand text-sm md:text-base hover:opacity-80">Leggi tutte →</Link>
+                    <Link href="/testimonianze" className="text-brand text-sm md:text-base hover:opacity-80">
+                        Leggi tutte →
+                    </Link>
                 </div>
 
                 <div className="overflow-x-auto flex gap-4 snap-x snap-mandatory pb-2">
                     {testimonials.map((t, i) => (
-                        <div key={i} className="snap-start min-w-[82%] sm:min-w-[420px] bg-white/5 ring-1 ring-white/10 rounded-3xl p-6">
+                        <div
+                            key={i}
+                            className="snap-start min-w-[82%] sm:min-w-[420px] bg-white/5 ring-1 ring-white/10 rounded-3xl p-6"
+                        >
                             <div className="flex items-center gap-3">
                                 <div className="h-9 w-9 rounded-full bg-white/10" />
                                 <div className="font-medium">{t.name}</div>
@@ -177,7 +187,10 @@ export default function Home() {
                             >
                                 WhatsApp
                             </Link>
-                            <Link href="/contact" className="px-6 py-3 rounded-full ring-1 ring-white/20 bg-white/5 hover:bg-white/10 transition">
+                            <Link
+                                href="/contact"
+                                className="px-6 py-3 rounded-full ring-1 ring-white/20 bg-white/5 hover:bg-white/10 transition"
+                            >
                                 Prenota una call
                             </Link>
                         </div>
